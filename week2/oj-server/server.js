@@ -4,6 +4,13 @@ const path = require('path');
 const restRouter = require('./routes/rest');
 const mongoose = require('mongoose');
 
+const http = require('http');
+
+var socketIO = require('socket.io');
+var io = socketIO();
+var editorSocketService = require('./services/editorSocketService')(io);
+
+
 
 
 app.use('/api/v1', restRouter);
@@ -19,4 +26,12 @@ app.use((req,res)=>{
 mongoose.connect('mongodb://youngdriver:wanttobeold@ds143340.mlab.com:43340/olddriver');
 
 
-app.listen(3000, () => console.log('Example app listening on port3000!'));
+//app.listen(3000, () => console.log('Example app listening on port3000!'));
+const server = http.createServer(app);
+io.attach(server);
+server.listen(3000);
+server.on('listening',onListening);
+
+function onListening(){
+	console.log('Example app listening on port3000!')
+}
