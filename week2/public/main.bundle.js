@@ -27,7 +27,7 @@ module.exports = ""
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>"
+module.exports = "<app-navbar></app-navbar>>\n<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -86,6 +86,8 @@ var app_routes_1 = __webpack_require__("./src/app/app.routes.ts");
 var new_problem_component_1 = __webpack_require__("./src/app/components/new-problem/new-problem.component.ts");
 var editor_component_1 = __webpack_require__("./src/app/components/editor/editor.component.ts");
 var collaboration_service_1 = __webpack_require__("./src/app/services/collaboration.service.ts");
+var navbar_component_1 = __webpack_require__("./src/app/components/navbar/navbar.component.ts");
+var search_pipe_1 = __webpack_require__("./src/app/pipes/search.pipe.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -96,7 +98,9 @@ var AppModule = /** @class */ (function () {
                 problem_list_component_1.ProblemListComponent,
                 problem_detail_component_1.ProblemDetailComponent,
                 new_problem_component_1.NewProblemComponent,
-                editor_component_1.EditorComponent
+                editor_component_1.EditorComponent,
+                navbar_component_1.NavbarComponent,
+                search_pipe_1.SearchPipe
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -243,6 +247,74 @@ exports.EditorComponent = EditorComponent;
 
 /***/ }),
 
+/***/ "./src/app/components/navbar/navbar.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/components/navbar/navbar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n  <a class=\"navbar-brand\" href=\"#\">{{title}}</a>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item active\">\n        <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"#\">Link</a>\n      </li>\n      <li class=\"nav-item dropdown\">\n        <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n          Dropdown\n        </a>\n        <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">\n          <a class=\"dropdown-item\" href=\"#\">Action</a>\n          <a class=\"dropdown-item\" href=\"#\">Another action</a>\n          <div class=\"dropdown-divider\"></div>\n          <a class=\"dropdown-item\" href=\"#\">Something else here</a>\n        </div>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link disabled\" href=\"#\">Disabled</a>\n      </li>\n    </ul>\n    <form class=\"form-inline my-2 my-lg-0\">\n      <input class=\"form-control mr-sm-2\" type=\"search\" placeholder=\"Search\" aria-label=\"Search\">\n      <button class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\">Search</button>\n    </form>\n  </div>\n</nav>"
+
+/***/ }),
+
+/***/ "./src/app/components/navbar/navbar.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+__webpack_require__("./node_modules/rxjs/_esm5/add/operator/debounceTime.js");
+var input_service_1 = __webpack_require__("./src/app/services/input.service.ts");
+var NavbarComponent = /** @class */ (function () {
+    function NavbarComponent(input, router) {
+        this.input = input;
+        this.router = router;
+        this.title = "COJ";
+        this.searchBox = new forms_1.FormControl();
+    }
+    NavbarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.subscription = this.searchBox.valueChanges.debounceTime(200).subscribe(function (term) {
+            _this.input.changeInput(term);
+        });
+    };
+    NavbarComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    NavbarComponent.prototype.searchProblem = function () {
+        this.router.navigate(['/problems']);
+    };
+    NavbarComponent = __decorate([
+        core_1.Component({
+            selector: 'app-navbar',
+            template: __webpack_require__("./src/app/components/navbar/navbar.component.html"),
+            styles: [__webpack_require__("./src/app/components/navbar/navbar.component.css")]
+        }),
+        __metadata("design:paramtypes", [input_service_1.InputService, router_1.Router])
+    ], NavbarComponent);
+    return NavbarComponent;
+}());
+exports.NavbarComponent = NavbarComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/components/new-problem/new-problem.component.css":
 /***/ (function(module, exports) {
 
@@ -376,7 +448,7 @@ module.exports = ".difficulty {\n    min-width: 65px;\n    margin-right: 18px;\n
 /***/ "./src/app/components/problem-list/problem-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n\t<app-new-problem></app-new-problem>\n\n  <div class = \"list-group\">\n    <a class=\"list-group-item\" *ngFor=\"let problem of problems\"\n    \t[routerLink]=\"['/problems',problem.id]\">\n      <span class=\"{{'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase()}}\">\n        {{problem.difficulty}}\n      </span>\n\n      <strong class=\"title\">{{problem.id}},{{problem.name}}</strong>\n    </a>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n\t<app-new-problem></app-new-problem>\n\n  <div class = \"list-group\">\n    <a class=\"list-group-item\" *ngFor=\"let problem of (problems | search: searchTerm)\"\n    \t[routerLink]=\"['/problems',problem.id]\">\n      <span class=\"{{'pull-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase()}}\">\n        {{problem.difficulty}}\n      </span>\n\n      <strong class=\"title\">{{problem.id}},{{problem.name}}</strong>\n    </a>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -397,12 +469,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var data_service_1 = __webpack_require__("./src/app/services/data.service.ts");
+var input_service_1 = __webpack_require__("./src/app/services/input.service.ts");
 var ProblemListComponent = /** @class */ (function () {
-    function ProblemListComponent(dataService) {
+    function ProblemListComponent(dataService, inputService) {
         this.dataService = dataService;
+        this.inputService = inputService;
+        this.searchTerm = '';
     }
     ProblemListComponent.prototype.ngOnInit = function () {
         this.getProblems();
+        this.getSearchTerm();
     };
     ProblemListComponent.prototype.ngOnDestroy = function () {
         this.subscriptionProblems.unsubscribe();
@@ -412,17 +488,55 @@ var ProblemListComponent = /** @class */ (function () {
         this.subscriptionProblems = this.dataService.getProblems()
             .subscribe(function (problems) { return _this.problems = problems; });
     };
+    ProblemListComponent.prototype.getSearchTerm = function () {
+        var _this = this;
+        this.subscriptionInput = this.inputService.getInput().subscribe(function (inputTerm) { return _this.searchTerm = inputTerm; });
+    };
     ProblemListComponent = __decorate([
         core_1.Component({
             selector: 'app-problem-list',
             template: __webpack_require__("./src/app/components/problem-list/problem-list.component.html"),
             styles: [__webpack_require__("./src/app/components/problem-list/problem-list.component.css")]
         }),
-        __metadata("design:paramtypes", [data_service_1.DataService])
+        __metadata("design:paramtypes", [data_service_1.DataService,
+            input_service_1.InputService])
     ], ProblemListComponent);
     return ProblemListComponent;
 }());
 exports.ProblemListComponent = ProblemListComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/search.pipe.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var SearchPipe = /** @class */ (function () {
+    function SearchPipe() {
+    }
+    SearchPipe.prototype.transform = function (problems, term) {
+        console.log(problems);
+        console.log(term);
+        return problems.filter(function (problem) { return problem.name.toLowerCase().includes(term); });
+    };
+    SearchPipe = __decorate([
+        core_1.Pipe({
+            name: 'search'
+        })
+    ], SearchPipe);
+    return SearchPipe;
+}());
+exports.SearchPipe = SearchPipe;
 
 
 /***/ }),
@@ -530,6 +644,44 @@ var DataService = /** @class */ (function () {
     return DataService;
 }());
 exports.DataService = DataService;
+
+
+/***/ }),
+
+/***/ "./src/app/services/input.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var BehaviorSubject_1 = __webpack_require__("./node_modules/rxjs/_esm5/BehaviorSubject.js");
+var InputService = /** @class */ (function () {
+    function InputService() {
+        this.inputSubject$ = new BehaviorSubject_1.BehaviorSubject('');
+    }
+    InputService.prototype.changeInput = function (term) {
+        this.inputSubject$.next(term);
+    };
+    InputService.prototype.getInput = function () {
+        return this.inputSubject$.asObservable();
+    };
+    InputService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], InputService);
+    return InputService;
+}());
+exports.InputService = InputService;
 
 
 /***/ }),
