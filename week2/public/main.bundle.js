@@ -82,6 +82,7 @@ var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var problem_list_component_1 = __webpack_require__("./src/app/components/problem-list/problem-list.component.ts");
 var problem_detail_component_1 = __webpack_require__("./src/app/components/problem-detail/problem-detail.component.ts");
 var data_service_1 = __webpack_require__("./src/app/services/data.service.ts");
+var input_service_1 = __webpack_require__("./src/app/services/input.service.ts");
 var app_routes_1 = __webpack_require__("./src/app/app.routes.ts");
 var new_problem_component_1 = __webpack_require__("./src/app/components/new-problem/new-problem.component.ts");
 var editor_component_1 = __webpack_require__("./src/app/components/editor/editor.component.ts");
@@ -110,7 +111,8 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 data_service_1.DataService,
-                collaboration_service_1.CollaborationService
+                collaboration_service_1.CollaborationService,
+                input_service_1.InputService
             ],
             bootstrap: [app_component_1.AppComponent]
         })
@@ -525,7 +527,7 @@ var SearchPipe = /** @class */ (function () {
     function SearchPipe() {
     }
     SearchPipe.prototype.transform = function (problems, term) {
-        console.log(problems);
+        // console.log(problems);
         console.log(term);
         return problems.filter(function (problem) { return problem.name.toLowerCase().includes(term); });
     };

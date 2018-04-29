@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ProblemListComponent } from './components/problem-list/problem-list.component';
 import { ProblemDetailComponent } from './components/problem-detail/problem-detail.component';
 import {DataService} from './services/data.service';
+import {InputService} from './services/input.service';
 import{routing} from './app.routes';
 import { NewProblemComponent } from './components/new-problem/new-problem.component';
 import { EditorComponent } from './components/editor/editor.component';
@@ -32,7 +33,8 @@ import { SearchPipe } from './pipes/search.pipe';
   ],
   providers: [
   	DataService,
-    CollaborationService
+    CollaborationService,
+    InputService
   ],
   bootstrap: [AppComponent]
 })
