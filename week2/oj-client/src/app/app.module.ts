@@ -28,7 +28,8 @@ import { SearchPipe } from './pipes/search.pipe';
   	BrowserModule,
   	routing,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
   	DataService,

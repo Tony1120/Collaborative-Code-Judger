@@ -107,7 +107,8 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule,
                 app_routes_1.routing,
                 forms_1.FormsModule,
-                http_1.HttpClientModule
+                http_1.HttpClientModule,
+                forms_1.ReactiveFormsModule,
             ],
             providers: [
                 data_service_1.DataService,
@@ -527,9 +528,9 @@ var SearchPipe = /** @class */ (function () {
     function SearchPipe() {
     }
     SearchPipe.prototype.transform = function (problems, term) {
-        // console.log(problems);
+        console.log(problems);
         console.log(term);
-        return problems.filter(function (problem) { return problem.name.toLowerCase().includes(term); });
+        return problems.filter(function (problem) { return problem.name.toLowerCase().includes(term.toLowerCase()); });
     };
     SearchPipe = __decorate([
         core_1.Pipe({

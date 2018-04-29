@@ -6,11 +6,11 @@ import {Problem} from '../models/problem.model'
 export class SearchPipe implements PipeTransform {
 
   transform(problems: Problem[], term:string): Problem[] {
-  	// console.log(problems);
+  	console.log(problems);
   	console.log(term);
 
     return problems.filter(
-    	problem=> problem.name.toLowerCase().includes(term));
+    	problem=> problem.name.toLowerCase().includes(term.toLowerCase()));
     	
   }
 
