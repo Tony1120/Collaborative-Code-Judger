@@ -580,8 +580,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/tonyliang/Desktop/gan/BitTiger-CS503-1802/week2/oj-client/src/styles.css */"./src/styles.css");
-module.exports = __webpack_require__(/*! /home/tonyliang/Desktop/gan/BitTiger-CS503-1802/week2/oj-client/node_modules/bootstrap/dist/css/bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+__webpack_require__(/*! /home/tonyliang/Desktop/BitTiger-CS503/Project1-Online-Code-Judger/oj-client/src/styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /home/tonyliang/Desktop/BitTiger-CS503/Project1-Online-Code-Judger/oj-client/node_modules/bootstrap/dist/css/bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
 
 
 /***/ })
