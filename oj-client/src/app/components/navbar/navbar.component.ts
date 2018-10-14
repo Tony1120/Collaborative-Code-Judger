@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { InputService } from '../../services/input.service';
 import { debounceTime} from 'rxjs/operators'
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,7 +16,6 @@ export class NavbarComponent implements OnInit {
 
 	searchBox: FormControl = new FormControl();
 	subscription: Subscription;
-
 
 
   constructor(private input: InputService, private router: Router) {}
