@@ -38,6 +38,7 @@ export class EditorComponent implements OnInit {
       .subscribe(params => {
         this.sessionId = params['id'];
         this.initEditor();
+        this.collaboration.restoreBuffer();
       })
   }
 

@@ -267,6 +267,7 @@ var EditorComponent = /** @class */ (function () {
             .subscribe(function (params) {
             _this.sessionId = params['id'];
             _this.initEditor();
+            _this.collaboration.restoreBuffer();
         });
     };
     EditorComponent.prototype.initEditor = function () {
@@ -713,6 +714,9 @@ var CollaborationService = /** @class */ (function () {
     };
     CollaborationService.prototype.change = function (delta) {
         this.collaborationSocket.emit("change", delta);
+    };
+    CollaborationService.prototype.restoreBuffer = function () {
+        this.collaborationSocket.emit("restoreBuffer");
     };
     CollaborationService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
